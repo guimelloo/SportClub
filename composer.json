@@ -1,0 +1,17 @@
+{
+    "name": "negro/sport-club",
+    "autoload": {
+        "psr-4": {
+            "Negro\\SportClub\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "guimelloo",
+            "email": "negromonteguilherme@gmail.com"
+        }
+    ],
+    "require": {
+        "illuminate/database": "^12.10"
+    }
+}
