@@ -1,19 +1,17 @@
-CREATE DATABASE skywalker;
-use skywalker;
--- Table voor users
-create table user (
-	ID int AUTO_INCREMENT,
-    name varchar(255),
-    username varchar(255) unique,
-    email varchar(255) unique,
-    password varchar(255), -- Stored in hash
-    role TINYINT DEFAULT 1, -- 1 = user, 2 = co-worker, 3 = admin
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    primary key(ID)
+CREATE DATABASE IF NOT EXISTS skywalker;
+USE skywalker;
+
+CREATE TABLE IF NOT EXISTS user (
+    ID INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255),
+    username VARCHAR(255) UNIQUE,
+    email VARCHAR(255) UNIQUE,
+    password VARCHAR(255), -- hashed
+    role TINYINT DEFAULT 1,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
- 
--- Table voor news
-CREATE TABLE news (
+
+CREATE TABLE IF NOT EXISTS news (
     id INT AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
     full_content TEXT NOT NULL,
@@ -21,9 +19,8 @@ CREATE TABLE news (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
- 
--- table voor events 
-CREATE TABLE events (
+
+CREATE TABLE IF NOT EXISTS events (
     id INT AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
     description TEXT NOT NULL,
@@ -34,17 +31,15 @@ CREATE TABLE events (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
- 
--- table voor teams
-CREATE TABLE teams (
+
+CREATE TABLE IF NOT EXISTS teams (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     category VARCHAR(100),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
- 
--- Table voor westrijd uitslagen
-CREATE TABLE match_results (
+
+CREATE TABLE IF NOT EXISTS match_results (
     id INT AUTO_INCREMENT PRIMARY KEY,
     home_team_id INT NOT NULL,
     away_team_id INT NOT NULL,
@@ -57,9 +52,8 @@ CREATE TABLE match_results (
     FOREIGN KEY (home_team_id) REFERENCES teams(id),
     FOREIGN KEY (away_team_id) REFERENCES teams(id)
 );
- 
--- Table voor contact requests
-CREATE TABLE contact_requests (
+
+CREATE TABLE IF NOT EXISTS contact_requests (
     id INT AUTO_INCREMENT PRIMARY KEY,
     first_name VARCHAR(100) NOT NULL,
     last_name VARCHAR(100) NOT NULL,
@@ -67,7 +61,7 @@ CREATE TABLE contact_requests (
     email VARCHAR(255) NOT NULL,
     subject VARCHAR(255) NOT NULL,
     message TEXT NOT NULL,
-    status ENUM('open', 'in_behandeling', 'opgelost') DEFAULT 'open', -- open is de default status met de opties: in,behandeling, opgelost
+    status ENUM('open', 'in_behandeling', 'opgelost') DEFAULT 'open',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
